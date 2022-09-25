@@ -1,4 +1,4 @@
-package utilities.utilities;
+package utilities;
 
 import io.cucumber.datatable.DataTable;
 

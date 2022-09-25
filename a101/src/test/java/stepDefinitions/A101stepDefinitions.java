@@ -1,33 +1,39 @@
 package stepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import pages.US_001;
-import utilities.utilities.ConfigReader;
-import utilities.utilities.ReusableMethods;
+import pages.US_A101;
+import utilities.ConfigReader;
+import utilities.Driver;
+import utilities.ReusableMethods;
 
-import java.sql.Driver;
-
-public class stepDefinitions {
-    US_001 A101Page = new US_001();
+public class A101stepDefinitions {
+    US_A101 A101Page = new US_A101();
     Actions actions = new Actions(Driver.getDriver());
-    WebElement il= A101Page.ilDropdown;
-    WebElement ilce= A101Page.ilceDropdown;
-    JavascriptExecutor jse =(JavascriptExecutor) Driver.getDriver();
+    WebElement il = A101Page.ilDropdown;
+    WebElement ilce = A101Page.ilceDropdown;
+    JavascriptExecutor jse = (JavascriptExecutor) Driver.getDriver();
     Select select;
 
-    @Given("Kullanici {string} anasayfasina giris yapar")
-    public void kullanici_anasayfasina_giris_yapar(String string) {
+    @Given("Kullanici Ayuzbir anasayfasina giris yapar")
+    public void kullaniciAyuzbirAnasayfasinaGirisYapar() {
 
         Driver.getDriver().get(ConfigReader.getProperty("a101Url"));
+
+        Driver.getDriver().findElement(By.xpath("//button[@class='CybotCookiebotDialogBodyButton'][2]")).click();
+
     }
+
 
     @Then("Kullanici Giyim&Aksesuar secenegine tiklar")
     public void kullanici_giyim_aksesuar_secenegine_tiklar() {
@@ -47,14 +53,18 @@ public class stepDefinitions {
         A101Page.dizaltiCorapSecenegi.click();
     }
 
-    @When("Kullanici acilan urunun siyah oldugunu dogrular")
-    public void kullanici_acilan_urunun_siyah_oldugunu_dogrular() {
+    @And("Kullanici acilan urunun Siyah oldugunu dogrular")
+    public void kullaniciAcilanUrununSiyahOldugunuDogrular() {
+        ReusableMethods.waitFor(3);
 
+        //String arananKelime="Siyah";
+        // String actuelArananSonucStr=A101Page.siyahYazisi.getText();
         Assert.assertTrue(A101Page.siyahYazisi.isDisplayed());
     }
 
     @When("Kullanici urun adedini secer ve adet ekle secenegine tiklar")
     public void kullanici_urun_adedini_secer_ve_adet_ekle_secenegine_tiklar() {
+        ReusableMethods.waitFor(3);
 
         A101Page.adetEkleSecenegi.click();
     }
@@ -109,45 +119,43 @@ public class stepDefinitions {
         A101Page.ilDropdown.click();
         ReusableMethods.waitFor(3);
         //Driver.waitForVisibility(il, 5);
-        Select select1 = new Select(il);
-        Thread.sleep(3000);
-        select1.selectByValue("ADANA");
+        //WebElement il=A101Page.ilDropdown;
+        //Select select1 = new Select(il);
+        //select1.selectByIndex(4);
         actions.sendKeys(Keys.TAB).perform();
         A101Page.ilceDropdown.click();
         ReusableMethods.waitFor(3);
-        //Driver.waitForVisibility(ilce, 5);
-        Select select2 = new Select(ilce);
-        Thread.sleep(3000);
-        select2.selectByValue("KOZAN");
+        //WebElement ilce=A101Page.ilceDropdown;
+        //Select select2 = new Select(ilce);
+        //select2.selectByIndex(8);
         actions.sendKeys(Keys.TAB).perform();
         A101Page.mahalleDropdown.click();
         ReusableMethods.waitFor(3);
-        //Driver.waitForVisibility(ilce, 5);
-        Select select3 = new Select(ilce);
-        Thread.sleep(3000);
-        select3.selectByValue("CUMHURIYET MAH");
+        // WebElement mahalle=A101Page.mahalleDropdown;
+        //Select select3 = new Select(mahalle);
+        //select3.selectByIndex(19);
         actions.sendKeys(Keys.TAB).perform();
         A101Page.adresTextBox.click();
-        A101Page.adresBasligiTextBox.sendKeys("cumhuriyet mah 2 sokak no 5");
+        ReusableMethods.waitFor(3);
+        A101Page.adresTextBox.sendKeys("cumhuriyet mahallesi 2 sokak numara 5");
         ReusableMethods.waitFor(3);
         actions.sendKeys(Keys.TAB).perform();
-        A101Page.postaKoduTextBox.click();
-        A101Page.adresBasligiTextBox.sendKeys("01500");
+        //A101Page.postaKoduTextBox.click();
+        //A101Page.postaKoduTextBox.sendKeys("01500");
         ReusableMethods.waitFor(3);
 
     }
 
     @When("Kullanici kaydet secenegini tiklar")
     public void kullanici_kaydet_secenegini_tiklar() {
-
+        //jse.executeScript("arguments[0].scrollIntoView(false);",A101Page.kaydetSecenegi);
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-popup-blocking");
         A101Page.kaydetSecenegi.click();
-    }
+        ChromeOptions options1 = new ChromeOptions();
+        options1.addArguments("disable-popup-blocking");
 
-    @When("Kullanici istedigi kargo firmasini secer kaydet ve devam et secenegine tiklar")
-    public void kullanici_istedigi_kargo_firmasini_secer_kaydet_ve_devam_et_secenegine_tiklar() {
-
-        A101Page.kargoRadioButonu.click();
-        A101Page.kaydetVeDevamEtSecenegi.click();
     }
 
 }
+

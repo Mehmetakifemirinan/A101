@@ -5,9 +5,9 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import utilities.utilities.ConfigReader;
-import utilities.utilities.DBUtils;
-import utilities.utilities.utilities.utilities.Driver;
+import utilities.ConfigReader;
+import utilities.DBUtils;
+import utilities.Driver;
 
 
 public class Hooks {

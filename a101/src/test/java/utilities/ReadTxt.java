@@ -1,4 +1,4 @@
-package utilities.utilities.utilities.utilities;
+package utilities;
 import pojos.Appointment;
 import pojos.Physician;
 import pojos.Registrant;
